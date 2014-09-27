@@ -3,7 +3,6 @@ var glob = require('glob');
 
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
@@ -20,7 +19,6 @@ module.exports = function(app, config) {
     extended: true
   }));
 
-    app.use(cors());
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));

@@ -1,7 +1,6 @@
 //hah those front-end noobs are noobs
 
 var express = require('express'),
-    cors = require('cors'),
     router = express.Router(),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -10,19 +9,27 @@ var express = require('express'),
 //Ensure that Andrizzle follows the name appropriately in the GET request
 var global = {};
 global.categories = {
-    "blazers&jackets" : 921501, "sweatshirts&sweatpants" : 1033018,
-    "pants&shorts" : 3688, "tops" : 3689,
-    "activewear" : 3676, "jeans" : 3677,
-    "outerwear" : 3678, "pants" : 3679,
-    "graphic tees" : 833001, "shortsleevetees" : 834001,
-    "polos" : 834002, "dressshirts" : 834003, "casualbuttondowns" : 834004,
-    "longsleevetees" : 834005, "shirts" : 3680,
-    "shorts" : 3681, "bottoms" : 3690,
-    "robes" : 3691, "sets" : 3692,
-    "sleepwearpajamas&pajamas" : 3682, "socks" : 3683,
-    "suitseperates" : 3684, "sweaters" : 3685,
-    "underwear" : 3687, "mensclothing" : 3675
+    "blazers&jackets": 921501, "sweatshirts&sweatpants": 1033018,
+    "pants&shorts": 3688, "tops": 3689,
+    "activewear": 3676, "jeans": 3677,
+    "outerwear": 3678, "pants": 3679,
+    "graphic tees": 833001, "shortsleevetees": 834001,
+    "polos": 834002, "dressshirts": 834003, "casualbuttondowns": 834004,
+    "longsleevetees": 834005, "shirts": 3680,
+    "shorts": 3681, "bottoms": 3690,
+    "robes": 3691, "sets": 3692,
+    "sleepwearpajamas&pajamas": 3682, "socks": 3683,
+    "suitseperates": 3684, "sweaters": 3685,
+    "underwear": 3687, "mensclothing": 3675
 };
+
+global.reviews = [
+    "I love this shirt, and it is true to size and comfortable, however the stitching came loose under one arm and has to be retired until it can be fixed.",
+    "Very Comfortable light fabric and get lots of comments too!!",
+    "My son gets so many compliments on this shirt. My nephew just saw it on him and liked it so much that I sent one to him.",
+    "I bought a shirt for my husband...and a small for myself! The shirt has a really cool design. Plus, the material is super cozy and soft! One of my favorites!",
+    "My husband loved it. He was so surprised. He even gets attention when he wears it. People ask where he got it.",
+];
 
 var Client = require('node-rest-client').Client;
 client = new Client();
@@ -41,7 +48,7 @@ var corsOptions = {
 
 
 // invoked for any requests passed to this router
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
@@ -60,9 +67,9 @@ router.get('/', function (req, res, next) {
 
 });
 
-var html ="<!DOCTYPE HTML><script src='//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js' master='http://localhost:8081'></script>";
+var html = "<!DOCTYPE HTML><script src='//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js' master='http://localhost:8081'></script>";
 
-router.get('/proxy.html', function(req,res,next){
+router.get('/proxy.html', function (req, res, next) {
     res.writeHeader(200, {"Content-Type": "text/html"});  // <-- HERE!
     res.write(html);  // <-- HERE!
     res.end();
@@ -96,7 +103,7 @@ router.get('/productDetails', function (req, res, next) {
         data = data['CatalogEntryView'];
         var content = [];
 
-        for(var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             content[i] = {};
             content[i].Name = data[0].title;
             console.log("data.title: " + data[0].title);
@@ -104,7 +111,7 @@ router.get('/productDetails', function (req, res, next) {
             content[i].Color = "";
             content[i].Price = data[0].Offers[0].OfferPrice[0].formattedPriceValue;
             console.log("Price: " + content[i].Price);
-            for(var j = 0; j < data[0].VariationAttributes.length; j++) {
+            for (var j = 0; j < data[0].VariationAttributes.length; j++) {
                 if (data[0].VariationAttributes[j].name === "COLOR") {
                     content[i].Color = data[0].VariationAttributes[j].value;
                 }
@@ -157,34 +164,34 @@ router.get('/productList', function (req, res, next) {
         data = data["CatalogEntryView"];
         var content = []; //array of objects
         /*
-            each object is an "item"
-            each item has these properties:
-                - DPCI
-                - sizes
-                - name
+         each object is an "item"
+         each item has these properties:
+         - DPCI
+         - sizes
+         - name
 
-                if there's any extra "crap" on the different sizes, it's cut off.
-        */
+         if there's any extra "crap" on the different sizes, it's cut off.
+         */
 
-        for(var i=0; i<data.length; i++){//first level
+        for (var i = 0; i < data.length; i++) {//first level
             content[i] = {};
             content[i].DPCI = data[i].DPCI;
 
-            for(var k=0; k < data[i].ItemAttributes[0].Attribute.length; k++){
-                if(data[i].ItemAttributes[0].Attribute[k].name === "Size"){
+            for (var k = 0; k < data[i].ItemAttributes[0].Attribute.length; k++) {
+                if (data[i].ItemAttributes[0].Attribute[k].name === "Size") {
                     content[i].sizes = data[i].ItemAttributes[0].Attribute[k].description;
                 }
-                if(data[i].ItemAttributes[0].Attribute[k].name === "ParentTitle"){
+                if (data[i].ItemAttributes[0].Attribute[k].name === "ParentTitle") {
                     content[i].name = data[i].ItemAttributes[0].Attribute[k].description;
                 }
             }
             //fix the sizes array
-            if(content[i].sizes !== undefined){
+            if (content[i].sizes !== undefined) {
                 content[i].sizes = content[i].sizes.split(","); //turns string into array seperated by ","
 
-                for(var j=0; j<content[i].sizes.length; j++){
-                    if(content[i].sizes[j].indexOf("#") > 0){   //checks to see if this string has extra crap
-                        content[i].sizes[j] = content[i].sizes[j].substring(0,content[i].sizes[j].indexOf("#")); //grabs everything BEFORE the first index of #
+                for (var j = 0; j < content[i].sizes.length; j++) {
+                    if (content[i].sizes[j].indexOf("#") > 0) {   //checks to see if this string has extra crap
+                        content[i].sizes[j] = content[i].sizes[j].substring(0, content[i].sizes[j].indexOf("#")); //grabs everything BEFORE the first index of #
                     }
                 }
             }
@@ -192,29 +199,29 @@ router.get('/productList', function (req, res, next) {
 
         }
 
-        var height    = 80;
-        var waist     = 30;
-        var length    = 32;
+        var height = 80;
+        var waist = 30;
+        var length = 32;
         var shirtSize = "M";
         var gender = "male";
 
         //Do some processing here to filter the products according to user information that I query from Mongo.
 
         User.find({"pants.waist": waist, gender: gender, "pants.length": length})
-            .exec(function(err, resp){
-            console.log(err);
-            console.log(resp);
-        });
-        /*User.where('pants.waist').lte(waist + 2).gte(waist -2)
-            .where('pants.length').lte(length +2).gte(waist -2)
-            .where('shirtSize').equals(shirtSize)
-            .where('gender').equals(gender).exec(function(err, res){
+            .exec(function (err, resp) {
                 console.log(err);
-                console.log(res);
+                console.log(resp);
             });
-        */
+        /*User.where('pants.waist').lte(waist + 2).gte(waist -2)
+         .where('pants.length').lte(length +2).gte(waist -2)
+         .where('shirtSize').equals(shirtSize)
+         .where('gender').equals(gender).exec(function(err, res){
+         console.log(err);
+         console.log(res);
+         });
+         */
         //Also need to get Name, Price, and Radical Rating System
-       //console.log(content);
+        //console.log(content);
         res.send(content); //used to be data -Braden
 
         //Here, go through and check all sizes pertaining to the user. 
@@ -223,13 +230,59 @@ router.get('/productList', function (req, res, next) {
 
 });
 
-router.get('/kick', function(req,res,next){
-    //code that adds reviews and products to each user in the db
+router.get('/kick', function (req, res, next) {
+
+    //Get a fixed, random list of DCIPs from Target
+    var resourceUri = "https://api.target.com/v2/products/search?categoryId=3675&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF";
+
+    client.get(resourceUri, function (data, response) {
+        var targetProducts = data.CatalogEntryView;
+        console.log(targetProducts);
+        var listOfDPCIs = [];
+
+        for (var i = 0; i < targetProducts.length; i++) {
+            listOfDPCIs[i] = targetProducts[i].DPCI;
+        }
+
+//        for(var j = 0; j < listOfDPCIs.length; j++) {
+//            console.log(listOfDPCIs[j]);
+//        }
+
+        //code that adds reviews and products to each user in the db
+        User.find({ "$or": [
+            { "reviews": { "$size": 0}} ,
+            { "reviews": null }
+        ]}) //find all of the records where the reviews are null or empty
+            .exec(function (err, resp) {
+                console.log(resp);
+
+                var listOfUserEmails = [];
+                //for (var j = 0; i < )
+
+                for (var i = 0; i < resp.length; i++) {
+                    //use kick to create some fake reviews now...
+                    var reviewToInsert = {
+                        ProductId: listOfDPCIs[Math.floor(Math.random() * listOfDPCIs.length)],
+                        Review: global.reviews[Math.floor(Math.random() * global.reviews.length)],
+                        Rating: { Ease: Math.floor(Math.random() * 5 + 1), FabricFeel: Math.floor(Math.random() * 5 + 1), QualityOfFit: Math.floor(Math.random() * 5 + 1), Coolness: Math.floor(Math.random() * 5 + 1), Design: Math.floor(Math.random() * 5 + 1) }
+                    };
+
+                    //console.log(resp[i]);
+
+                    resp[i].reviews.push(reviewToInsert);
+                    console.log(resp[i]);
+                    User.update({ email: resp[i].email }, { $addToSet : { reviews : reviewToInsert }});
+                };
+
+                //resp is all of the users with the similar height, waist, and pant length
+            });
+    });
+
 
     res.send({message: "KICK!"});
 });
 
-router.post('/register', function(req, res, next) {
+router.post('/register', function (req, res, next) {
 
     var userProperties = {
         name: {
@@ -261,18 +314,18 @@ router.post('/register', function(req, res, next) {
 
 });
 
-router.post('/test', function(req, res, next){
-   var test = req.param('test');
+router.post('/test', function (req, res, next) {
+    var test = req.param('test');
     console.log(test);
     res.send({test: test});
 });
 
-router.get('/login', function(req, res, next){
+router.get('/login', function (req, res, next) {
     res.send({
-       name: {
-           first: "John",
-           last: "Doe"
-       },
+        name: {
+            first: "John",
+            last: "Doe"
+        },
         email: "john@stthomas.edu",
         gender: "male",
         height: 86,
@@ -283,17 +336,16 @@ router.get('/login', function(req, res, next){
     });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', function (req, res, next) {
     var email = req.param('email');
     var password = req.param('password');
 
 
-   console.log(req.body);
+    console.log(req.body);
     //console.log("email: " + req.body.email);
     //console.log("password: " + req.body.password);
 
     res.send({"no": "no dice"});
-
 
 
     User.find({ email: email, password: password });
