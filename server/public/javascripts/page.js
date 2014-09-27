@@ -190,6 +190,8 @@ function loadItem(productId){
 		data: {dpci:productId},
 		type: "GET",
 		success: function(result){
+
+            result = result[0];
 			jQuery("#itemPic").html("<img src='" + result.PrimaryImage + "'>");
 			jQuery("#productColor1").html(result.Color);
 			/* jQuery("#reviews").html(result.review); */
