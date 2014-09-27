@@ -26,6 +26,14 @@ meta.foundation-data-attribute-namespace {
 
 html, body {
   height: 100%; }
+  
+div.menuItems {
+	background-image:url(../img/buttonHole.png);
+	background-repeat: no-repeat;
+	height: 35px;
+	padding-left: 40px;
+	text-align: left;
+}
 
 *,
 *:before,
