@@ -1,4 +1,4 @@
-$(document).foundation({
+jQuery(document).foundation({
 	slider: {
 		on_change: function(){
 			var height = jQuery("#heightSlider").val();
@@ -9,4 +9,9 @@ $(document).foundation({
 			jQuery("#pantsValue").html(length + " inches" );
 		}
 	}
+});
+
+jQuery(document).ready(function(){
+	jQuery("#loginLink").colorbox({open:true, inline:true});
+	jQuery("#loginLink").colorbox({inline:true});
 });
