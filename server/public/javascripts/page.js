@@ -68,17 +68,19 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery(".menuItems").click(function(){
+        returnHome();
 		var categoryNumber = jQuery(this).attr("id");
-        console.log("categoryNumber: " + categoryNumber);
 		jQuery.ajax({
-			url: "/productlist?category=",
-			data: categoryNumber,
+			url: "/productlist",
+			data: {category:categoryNumber},
 			type: "GET",
 			success: function(result){
-               jQuery(".featuredItem").each(function(ele, index) {
-                   $(this).attr("id", result[index].id);
-                   $(this).attr("src", result[index].fullImage);
-               });
+               $(".main1").attr("id", result[1].DPCI).attr("src", result[1].image);
+               $(".main2").attr("id", result[2].DPCI).attr("src", result[2].image);
+               $(".main3").attr("id", result[3].DPCI).attr("src", result[3].image);
+               $(".main4").attr("id", result[4].DPCI).attr("src", result[4].image);
+               $(".main5").attr("id", result[5].DPCI).attr("src", result[5].image);
+               $(".main6").attr("id", result[6].DPCI).attr("src", result[6].image);
 			}
 		});
 	});
