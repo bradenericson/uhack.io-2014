@@ -54,6 +54,15 @@ jQuery(document).ready(function(){
 		jQuery("#registerLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
 		jQuery(document).resize();
 	});
+	
+	jQuery(".featuredItem").click(function(){
+		var productId = jQuery(this).attr("id");
+		loadItem(productId);
+	});
+	
+	jQuery("#logo").click(function(){
+		returnHome();
+	});
 });
 
 function setLoggedInUser(userInfo){
@@ -148,15 +157,15 @@ function doRegister(){
 
 function returnHome(){
 	jQuery("#itemDetails").hide();
-	jQuery("#featureContent").show();
+	jQuery("#featuredContent").show();
 }
 
-function loadItem(item){
+function loadItem(productId){
 	jQuery("#featuredContent").hide();
 	jQuery("#itemDetails").show();
 	jQuery.ajax({
 		url: "localhost:8080/login",
-		/* data: loginCredentials, */
+		data: productId,
 		type: "GET",
 		success: function(result){
 			jQuery("#itemPic").html(result.itemPicture);
