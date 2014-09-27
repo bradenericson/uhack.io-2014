@@ -8,8 +8,8 @@ var config = {
     app: {
       name: 'uhack-io-2014'
     },
-    port: 3000,
-    db: 'mongodb://localhost/uhack-io-2014-development'
+    port: 8080,
+    db: 'mongodb://localhost:27017'
     
   },
 
@@ -18,8 +18,8 @@ var config = {
     app: {
       name: 'uhack-io-2014'
     },
-    port: 3000,
-    db: 'mongodb://localhost/uhack-io-2014-test'
+    port: 8080,
+    db: 'mongodb://localhost:27017'
     
   },
 
@@ -28,8 +28,8 @@ var config = {
     app: {
       name: 'uhack-io-2014'
     },
-    port: 3000,
-    db: 'mongodb://localhost/uhack-io-2014-production'
+    port: 8080,
+    db: 'mongodb://localhost:27017'
     
   }
 };
