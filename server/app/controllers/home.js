@@ -28,7 +28,7 @@ global.reviews = [
     "Very Comfortable light fabric and get lots of comments too!!",
     "My son gets so many compliments on this shirt. My nephew just saw it on him and liked it so much that I sent one to him.",
     "I bought a shirt for my husband...and a small for myself! The shirt has a really cool design. Plus, the material is super cozy and soft! One of my favorites!",
-    "My husband loved it. He was so surprised. He even gets attention when he wears it. People ask where he got it.",
+    "My husband loved it. He was so surprised. He even gets attention when he wears it. People ask where he got it."
 ];
 
 var Client = require('node-rest-client').Client;
@@ -271,7 +271,8 @@ router.get('/kick', function (req, res, next) {
 
                     resp[i].reviews.push(reviewToInsert);
                     console.log(resp[i]);
-                    User.update({ email: resp[i].email }, { $addToSet : { reviews : reviewToInsert }});
+
+                    User.update({ email: resp[i].email }, { $push : { reviews : reviewToInsert }});
                 };
 
                 //resp is all of the users with the similar height, waist, and pant length
