@@ -1,4 +1,5 @@
 var loggedInUser;
+var cart = [];
 
 jQuery(document).foundation({
 	slider: {
@@ -80,7 +81,6 @@ function doLogin(email,password){
 		data: loginCredentials,
 		type: "GET",
 		success: function(result){
-            console.log(result);
 			var user = {};
 			user.firstName = result.name.first;
 			user.LastName = result.name.last;
@@ -140,7 +140,7 @@ function doRegister(){
 	}
 	
 	if(validates == true){
-		var registrationInfo = {firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
+		var registrationInfo = {password:password, firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
 		jQuery.ajax({
 			url: "/register",
 			data: registrationInfo,
@@ -169,20 +169,24 @@ function loadItem(productId){
 		data: productId,
 		type: "GET",
 		success: function(result){
-			jQuery("#itemPic").html(result.itemPicture);
-			jQuery("#productColor1").html(result.itemColor1);
-			jQuery("#productColor2").html(result.itemColor2);
-			jQuery("#productColor3").html(result.itemColor3);
-			jQuery("#productColor4").html(result.itemColor4);
+			jQuery("#itemPic").html(result.PrimaryImage);
+			jQuery("#productColor1").html(result.Color);
 			jQuery("#reviews").html(result.review);
-			jQuery("#productName").html(result.productName);
-			jQuery("#productDesigner").html(result.designer);
-			jQuery("#productPrice").html(result.price);
-			jQuery("#productDescription").html(result.description);
+			jQuery("#productName").html(result.Name);
+			jQuery("#productPrice").html(result.Price);
+			var inStock = result.Availability;
+			if(!inStock){
+				jQuery("#buyItem").html("Out of stock.");
+			} else {
+				jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>");
+				jQuery("#addToCart").click(function(){
+					cart.push(productId);
+				});
+			}
 			
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
-				labels: ["Data1", "Data2", "Data3", "Data4", "Data5"],
+				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
 				datasets: [
 					{
 						label: "Product's ratings",
