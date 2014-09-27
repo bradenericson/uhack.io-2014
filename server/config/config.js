@@ -31,7 +31,9 @@ var config = {
     port: 8080,
     db: 'mongodb://localhost:27017'
     
-  }
+  },
+
+    isFirst: true
 };
 
 module.exports = config[env];
