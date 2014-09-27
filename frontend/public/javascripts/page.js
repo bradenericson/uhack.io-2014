@@ -1,3 +1,5 @@
+var loggedInUser;
+
 jQuery(document).foundation({
 	slider: {
 		on_change: function(){
@@ -12,7 +14,14 @@ jQuery(document).foundation({
 });
 
 jQuery(document).ready(function(){
-	jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	if(loggedInUser == null){
+		jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	}
+	
+	jQuery("#guestSkip").click(function(){
+		setLoggedInUser(null);
+		jQuery("#loginLink").colorbox.remove();
+	});
 	
 	jQuery("#loginButton").click(function(){
 		var validates = true;
@@ -47,14 +56,31 @@ jQuery(document).ready(function(){
 	});
 });
 
+function setLoggedInUser(userInfo){
+	var user = "Guest";
+	if(userInfo != null) {
+		user = userInfo.email;
+	}
+	jQuery("#displayUsername").html(user);
+}
+
 function doLogin(email,password){
 	var loginCredentials = {email:email,password:password};
 	jQuery.ajax({
 		url: "localhost:8080/login",
 		data: loginCredentials,
 		type: "GET",
-		success: function(){
-			//TODO set the logged in user
+		success: function(result){
+			var user;
+			user.firstName = result.name.first;
+			user.LastName = result.name.last;
+			user.email = result.email;
+			user.gender = result.gender;
+			user.height = result.height;
+			user.shirt = result.shirtSize;
+			user.pants = result.pantsLength;
+			user.waist = result.waist;
+			setLoggedInUser(user);
 			jQuery("#loginLink").colorbox.remove();
 		}
 	});
