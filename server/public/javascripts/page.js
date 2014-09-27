@@ -1,5 +1,7 @@
 var loggedInUser;
 var cart = [];
+var ctx;
+var radarChart;
 
 jQuery(document).foundation({
 	slider: {
@@ -185,6 +187,9 @@ function doRegister(){
 function returnHome(){
 	jQuery("#itemDetails").hide();
 	jQuery("#featuredContent").show();
+    $("#radicalMenu").html("<canvas id='radar' width='400' height='400'></canvas>");
+    
+
 }
 
 function loadItem(productId){
@@ -230,8 +235,8 @@ function loadItem(productId){
 				]
 			}
             // Get the context of the canvas element we want to select
-            var ctx = document.getElementById("radar").getContext("2d");
-            //var ctx = $("#radar").get(0).getContext("2d");
+
+            ctx = $("#radar").get(0).getContext("2d");
             var option = {
                 //Boolean - Whether to show lines for each scale point
                 scaleShowLine : true,
@@ -288,7 +293,7 @@ function loadItem(productId){
                 legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
             };
-            var myNewChart = new Chart(ctx).Radar(radicalGraph, option);
+            radarChart = new Chart(ctx).Radar(radicalGraph);
 		}
 	});
 }
