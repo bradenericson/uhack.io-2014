@@ -6,6 +6,8 @@ router.get('/', function (req, res) {
     res.render('index', { title: 'Express' });
 });
 
+
+
 //POST = saving data
 //GET = getting data
 //PUT = Updating data

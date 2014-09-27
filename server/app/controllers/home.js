@@ -1,6 +1,7 @@
 //hah those front-end noobs are noobs
 
 var express = require('express'),
+    cors = require('cors'),
     router = express.Router(),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -25,8 +26,16 @@ global.categories = {
 var Client = require('node-rest-client').Client;
 client = new Client();
 
+
 module.exports = function (app) {
+    app.use(cors());
     app.use('/', router);
+
+
+};
+
+var corsOptions = {
+    origin: 'localhost:8081'
 };
 
 router.get('/', function (req, res, next) {
@@ -150,7 +159,11 @@ router.get('/productList', function (req, res, next) {
 });
 
 
-router.post('/register', function(req, res, next) {
+router.post('/register', cors(corsOptions), function(req, res, next) {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
     var userProperties = {
         name: {
             first: req.param('firstName'),
