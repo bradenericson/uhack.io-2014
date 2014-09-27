@@ -109,6 +109,10 @@ router.get('/productDetails', function (req, res, next) {
         data = data['CatalogEntryView'];
         var content = [];
 
+        if (data === null || data.length < 0) {
+            res.status(404).send("There was an error displaying the product details!");
+        }
+
         for (var i = 0; i < data.length; i++) {
             content[i] = {};
             content[i].Name = data[0].title;
@@ -125,6 +129,7 @@ router.get('/productDetails', function (req, res, next) {
             //null check for availability
             if (data.inventoryAvailabilityMessage) {
                 console.log("Availability: " + content[i].Availability);
+                content[i].Availability = data.inventoryAvailabilityMessage;
             }
         }
 
@@ -224,6 +229,9 @@ router.get('/productList', function (req, res, next) {
             .exec(function (err, resp) {
                 console.log(err);
                 console.log(resp);
+
+
+
             });
         /*User.where('pants.waist').lte(waist + 2).gte(waist -2)
          .where('pants.length').lte(length +2).gte(waist -2)
