@@ -272,7 +272,12 @@ router.get('/kick', function (req, res, next) {
                     resp[i].reviews.push(reviewToInsert);
                     console.log(resp[i]);
 
-                    User.update({ email: resp[i].email }, { $push : { reviews : reviewToInsert }});
+                    //User.update({ email: resp[i].email }, { $push : { reviews : reviewToInsert }});
+
+
+                    resp[i].markModified('array');
+                    resp[i].save();
+//
                 };
 
                 //resp is all of the users with the similar height, waist, and pant length
