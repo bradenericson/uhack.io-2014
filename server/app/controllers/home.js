@@ -122,13 +122,14 @@ router.get('/productList', function (req, res, next) {
 });
 
 
-router.post('/userRegistration', function (req, res, next) {
+router.post('/register', function(req, res, next) {
     var userProperties = {
         name: {
             first: req.param('firstName'),
             last: req.param('lastName')
         },
         email: req.param('email'),
+        password: req.param('password'),
         gender: req.param('gender'),
         height: req.param('height'),
         shirtSize: req.param('shirtSize'),
@@ -150,3 +151,14 @@ router.post('/userRegistration', function (req, res, next) {
 
 
 });
+
+router.post('/login', function(req, res, next) {
+    var email = req.param('email');
+    var password = req.param('password');
+
+    //User.find( { email: email, password: password })
+    User.where('email').equals(email).exec(function(res){
+        console.log("inside callback:" + res);
+    });
+});
+
