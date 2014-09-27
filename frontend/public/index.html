@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TruFit</title>
     <link rel="stylesheet" href="css/foundation.css" />
+	<link rel="stylesheet" href="css/colorbox.css" />
     <script src="javascripts/vendor/modernizr.js"></script>
   </head>
   <body>
@@ -18,7 +19,7 @@
       </div>
     </div>
 	
-	<div style="float:left">
+	<div>
 		<img src="img/logo1.png">
 	</div>
 	
@@ -38,7 +39,7 @@
 		</div>
 		<div class="large-1 columns"></div>
 		<div class="large-3 columns">
-			Search Area
+			<input type="text" placeholder="Search" />
 		</div>
       </div>
     </div>
@@ -128,122 +129,169 @@
       </div>
     </div>
 
-    <div class="row">
-		<form>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Username</label>
-					<input type="text" placeholder="Username" />
+	<a id="loginLink" href="#loginArea"></a>
+	<div style="display:none">
+		<div id="loginArea" class="row">
+			<form>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Username</label>
+							<input type="text" placeholder="Username" />
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Password</label>
-					<input type="password" placeholder="Password" />
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Password</label>
+							<input type="password" placeholder="Password" />
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="large-6 columns">
-					<button>Login</button>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-6 columns">
+							<button>Login</button>
+						</div>
+						<div class="large-6 columns">
+							<button>Register</button>
+						</div>
+					</div>
 				</div>
-				<div class="large-6 columns">
-					<button>Register</button>
-				</div>
-			</div>
-		</form>
-    </div>
+			</form>
+		</div>
+	</div>
 	
-	<div class="row">
-		<form>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Username</label>
-					<input type="text" placeholder="Username" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Password</label>
-					<input type="password" placeholder="Password" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Confirm Password</label>
-					<input type="password" placeholder="Password" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Gender
-						<select>
-							<option value=""></option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
-						</select>
-					</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<div>Height: <span id="heightValue"></span></div>
-					<div class="range-slider" data-slider data-options="start: 48; end: 84;">
-						<span class="range-slider-handle" role="slider" tabindex="0"></span>
-						<span class="range-slider-active-segment"></span>
-						<input id="heightSlider" type="hidden">
+	<a id="loginLink" href="#loginArea"></a>
+	<div id="registerLink" style="display:none">
+		<div id="registerArea" class="row">
+			<form>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Username</label>
+							<input type="text" placeholder="Username" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<div>Waist Size: <span id="waistValue"></span></div>
-					<div class="range-slider" data-slider data-options="start: 20; end: 55;">
-						<span class="range-slider-handle" role="slider" tabindex="0"></span>
-						<span class="range-slider-active-segment"></span>
-						<input id="waistSlider" type="hidden">
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-6 columns">
+							<label>Password</label>
+							<input type="password" placeholder="Password" />
+						</div>
+						<div class="large-6 columns">
+							<label>Confirm Password</label>
+							<input type="password" placeholder="Password" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<div>Pants Length: <span id="pantsValue"></span></div>
-					<div class="range-slider" data-slider data-options="start: 20; end: 40;">
-						<span class="range-slider-handle" role="slider" tabindex="0"></span>
-						<span class="range-slider-active-segment"></span>
-						<input id="pantsSlider" type="hidden">
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-6 columns">
+							<label>First Name</label>
+							<input type="text" placeholder="First Name" />
+						</div>
+						<div class="large-6 columns">
+							<label>Last Name</label>
+							<input type="text" placeholder="Last Name" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<label>Standard Shirt Size
-						<select>
-							<option value=""></option>
-							<option value="xxs">XXS</option>
-							<option value="xs">XS</option>
-							<option value="s">S</option>
-							<option value="m">M</option>
-							<option value="l">L</option>
-							<option value="xl">XL</option>
-							<option value="2xl">2XL</option>
-							<option value="3xl">3XL</option>
-						</select>
-					</label>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Email</label>
+							<input type="text" placeholder="Email" />
+						</div>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="large-5 columns">
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Gender
+								<select>
+									<option value=""></option>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
+							</label>
+						</div>
+					</div>
 				</div>
-				<div class="large-7 columns">
-					<button>Register</button>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Height: <span id="heightValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 48; end: 84;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="heightSlider" type="hidden">
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</form>
-    </div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Waist Size: <span id="waistValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 20; end: 55;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="waistSlider" type="hidden">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Pants Length: <span id="pantsValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 20; end: 40;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="pantsSlider" type="hidden">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Standard Shirt Size
+								<select>
+									<option value=""></option>
+									<option value="xxs">XXS</option>
+									<option value="xs">XS</option>
+									<option value="s">S</option>
+									<option value="m">M</option>
+									<option value="l">L</option>
+									<option value="xl">XL</option>
+									<option value="2xl">2XL</option>
+									<option value="3xl">3XL</option>
+								</select>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-5 columns">
+						</div>
+						<div class="large-7 columns">
+							<button>Register</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
     
     <script src="javascripts/vendor/jquery.js"></script>
     <script src="javascripts/foundation.min.js"></script>
 	<script src="javascripts/page.js"></script>
+	<script src="javascripts/jquery.colorbox-min.js"></script>
   </body>
 </html>
