@@ -197,15 +197,11 @@ function loadItem(productId){
 			/* jQuery("#reviews").html(result.review); */
 			jQuery("#productName").html(result.Name);
 			jQuery("#productPrice").html(result.Price);
-			var inStock = result.Availability;
-			if(!inStock){
-				jQuery("#buyItem").html("Out of stock.");
-			} else {
-				jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>");
-				jQuery("#addToCart").click(function(){
-					cart.push({name:result.Name,price:result.price});
-				});
-			}
+			/* jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>"); */
+			
+			jQuery("#addToCart").click(function(){
+				cart.push({name:result.Name,price:result.price});
+			});
 			/* 
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
