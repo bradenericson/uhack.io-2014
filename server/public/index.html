@@ -305,18 +305,31 @@
 			</div>
 			<div class="row">
 				<div class="large-12 columns">
-					<div class="large-12 columns" id="cartTable"></div>
+					<div class="large-12 columns">
+						<div class="large-3 columns" style="visibility:hidden">blank</div>
+						<div class="large-9 columns" id="cartTable"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="large-12 columns">
+						<div class="large-4 columns" style="visibility:hidden">blank</div>
+						<div class="large-8 columns">
+							<script src="javascripts/paypal-button.min.js?merchant=bce94@yahoo.com"
+								id="paypal"
+								data-button="buynow"
+								data-name="My Clothing"
+								data-amount="10.00"
+								async
+								></script>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-    <script src="javascripts/paypal-button.min.js?merchant=bce94@yahoo.com"
-            data-button="buynow"
-            data-name="My Clothing"
-            data-amount="10.00"
-            async
-            ></script>
     
     <script src="javascripts/vendor/jquery.js"></script>
     <script src="javascripts/foundation.min.js"></script>
