@@ -6,6 +6,22 @@ var express = require('express'),
     User = mongoose.model('User');
 // User = mongoose.model('User');
 
+var global = {};
+global.categories = {
+    "blazers&jackets" : 921501, "sweatshirts&sweatpants" : 1033018,
+    "pants&shorts" : 3688, "tops" : 3689,
+    "activewear" : 3676, "jeans" : 3677,
+    "outerwear" : 3678, "pants" : 3679,
+    "graphic tees" : 833001, "shortsleevetees" : 834001,
+    "polos" : 834002, "dressshirts" : 834003, "casualbuttondowns" : 834004,
+    "longsleevetees" : 834005, "shirts" : 3680,
+    "shorts" : 3681, "bottoms" : 3690,
+    "robes" : 3691, "sets" : 3692,
+    "sleepwearpajamas&pajamas" : 3682, "socks" : 3683,
+    "suitseperates" : 3684, "sweaters" : 3685,
+    "underwear" : 3687, "mensclothing" : 3675
+};
+
 var Client = require('node-rest-client').Client;
 client = new Client();
 
@@ -97,19 +113,31 @@ router.get('/productList', function (req, res, next) {
         for(var i=0; i<data.length; i++){//first level
             content[i] = {};
             content[i].DPCI = data[i].DPCI;
-            content[i].sizes = data[i].ItemAttributes[0].Attribute[1].description//second level
-            content[i].sizes = content[i].sizes.split(","); //turns string into array seperated by ","
 
-            for(var j=0; j<content[i].sizes.length; j++){
-                if(content[i].sizes[j].indexOf("#") > 0){   //checks to see if this string has extra crap
-                    content[i].sizes[j] = content[i].sizes[j].substring(0,content[i].sizes[j].indexOf("#")); //grabs everything BEFORE the first index of #
+            for(var k=0; k < data[i].ItemAttributes[0].Attribute.length; k++){
+                if(data[i].ItemAttributes[0].Attribute[k].name === "Size"){
+                    content[i].sizes = data[i].ItemAttributes[0].Attribute[k].description;
                 }
+                if(data[i].ItemAttributes[0].Attribute[k].name === "ParentTitle"){
+                    content[i].name = data[i].ItemAttributes[0].Attribute[k].description;
+                }
+            }
+            //fix the sizes array
+            if(content[i].sizes !== undefined){
+                content[i].sizes = content[i].sizes.split(","); //turns string into array seperated by ","
 
+                for(var j=0; j<content[i].sizes.length; j++){
+                    if(content[i].sizes[j].indexOf("#") > 0){   //checks to see if this string has extra crap
+                        content[i].sizes[j] = content[i].sizes[j].substring(0,content[i].sizes[j].indexOf("#")); //grabs everything BEFORE the first index of #
+                    }
+                }
             }
 
-            content[i].name = data[i].ItemAttributes[0].Attribute[2].description//second level
 
         }
+
+
+
         //Do some processing here to filter the products according to user information that I query from Mongo.
         //Also need to get Name, Price, and Radical Rating System
        //console.log(content);
