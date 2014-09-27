@@ -34,6 +34,7 @@ var UserSchema = new Schema({
         length: Number,
         waist: Number
     },
+    weight: Number,
     reviews: Array          //holds the reviews written by the user
 });
 

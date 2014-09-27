@@ -165,6 +165,7 @@ router.post('/register', function(req, res, next) {
             length: req.param('pantsLength'),
             waist: req.param('waist')
         },
+        weight: req.param('weight'),
         reviews: []
     };
 
@@ -184,6 +185,22 @@ router.post('/test', function(req, res, next){
    var test = req.param('test');
     console.log(test);
     res.send({test: test});
+});
+
+router.get('/login', function(req, res, next){
+    res.send({
+       name: {
+           first: "John",
+           last: "Doe"
+       },
+        email: "john@stthomas.edu",
+        gender: "male",
+        height: 86,
+        shirtSize: "M",
+        pantsLength: 30,
+        waist: 32,
+        weight: 160
+    });
 });
 
 router.post('/login', function(req, res, next) {
