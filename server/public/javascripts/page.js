@@ -190,9 +190,9 @@ function loadItem(productId){
 		data: {dpci:productId},
 		type: "GET",
 		success: function(result){
-			jQuery("#itemPic").html(result.PrimaryImage);
+			jQuery("#itemPic").html("<img src='" + result.PrimaryImage + "'>");
 			jQuery("#productColor1").html(result.Color);
-			jQuery("#reviews").html(result.review);
+			/* jQuery("#reviews").html(result.review); */
 			jQuery("#productName").html(result.Name);
 			jQuery("#productPrice").html(result.Price);
 			var inStock = result.Availability;
@@ -204,7 +204,7 @@ function loadItem(productId){
 					cart.push({name:result.Name,price:result.price});
 				});
 			}
-			
+			/* 
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
 				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
@@ -223,7 +223,7 @@ function loadItem(productId){
 			}
 			window.myRadar = new Chart(jQuery("#radicalMenu").getContext("2d")).Radar(radicalGraph, {
 				responsive: true
-			});
+			}); */
 		}
 	});
 }
