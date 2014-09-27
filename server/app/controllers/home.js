@@ -29,7 +29,7 @@ client = new Client();
 
 
 module.exports = function (app) {
-    app.use(cors());
+
     app.use('/', router);
 
 
@@ -38,6 +38,15 @@ module.exports = function (app) {
 var corsOptions = {
     origin: 'localhost:8081'
 };
+
+
+// invoked for any requests passed to this router
+router.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
+    next();
+});
 
 router.get('/', function (req, res, next) {
 
@@ -175,9 +184,28 @@ router.get('/productList', function (req, res, next) {
 
         }
 
-
+        var height    = 80;
+        var waist     = 30;
+        var length    = 32;
+        var shirtSize = "M";
+        var gender = "male";
 
         //Do some processing here to filter the products according to user information that I query from Mongo.
+
+        User.find({"pants.waist": waist, gender: gender, "pants.length": length})
+
+            .exec(function(err, resp){
+            console.log(err);
+            console.log(resp);
+        });
+        /*User.where('pants.waist').lte(waist + 2).gte(waist -2)
+            .where('pants.length').lte(length +2).gte(waist -2)
+            .where('shirtSize').equals(shirtSize)
+            .where('gender').equals(gender).exec(function(err, res){
+                console.log(err);
+                console.log(res);
+            });
+        */
         //Also need to get Name, Price, and Radical Rating System
        //console.log(content);
         res.send(content); //used to be data -Braden
@@ -188,11 +216,13 @@ router.get('/productList', function (req, res, next) {
 
 });
 
+router.get('/kick', function(req,res,next){
+    //code that adds reviews and products to each user in the db
+
+    res.send({message: "KICK!"});
+});
 
 router.post('/register', cors(corsOptions), function(req, res, next) {
-
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
     var userProperties = {
         name: {
@@ -257,25 +287,7 @@ router.post('/login', function(req, res, next) {
 
     res.send({"no": "no dice"});
 
-//    // find each person with a last name matching 'Ghost'
-//    var query = User.findOne({ 'email': email });
-//
-//// selecting the `name` and `occupation` fields
-//    query.select('name');
-//
-//    // execute the query at a later time
-//    query.exec(function (err, User) {
-//        if (err) return handleError(err);
-//        console.log('%s %s', User.name.first, User.name.last) // Space Ghost is a talk show host.
-//    });
 
-
-    //User.find( { email: email, password: password });
-
-//    User.find( { email: email, password: password }).toArray(function(err, items) {
-//        console.log(items);
-//        res.send(items);
-//    });
 
     User.find({ email: email, password: password });
 //    User.where('email').equals(email).exec(function(res){
