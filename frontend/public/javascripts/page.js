@@ -20,6 +20,7 @@ jQuery(document).ready(function(){
 	jQuery("#openRegister").click(function(){
 		jQuery("#loginLink").colorbox.remove();
 		jQuery("#registerLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+		jQuery(document).resize();
 	});
 });
 
