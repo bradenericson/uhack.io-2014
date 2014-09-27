@@ -1,5 +1,7 @@
 var loggedInUser;
 var cart = [];
+var ctx;
+var radarChart;
 
 jQuery(document).foundation({
 	slider: {
@@ -18,6 +20,10 @@ jQuery(document).ready(function(){
 	if(loggedInUser == null){
 		jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
 	}
+
+    jQuery("#addToCart").click(function(){
+        cart.push({name:jQuery("#productName").html(),price:jQuery("#productPrice").html()});
+    });
 	
 	jQuery("#guestSkip").click(function(){
 		setLoggedInUser(null);
@@ -66,12 +72,19 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery(".menuItems").click(function(){
-		var categoryNumber = jQuery(this).attr("id").substring(4,jQuery(this).attr("id").length);
+        returnHome();
+		var categoryNumber = jQuery(this).attr("id");
 		jQuery.ajax({
 			url: "/productlist",
-			data: categoryNumber,
+			data: {category:categoryNumber},
 			type: "GET",
 			success: function(result){
+               $(".main1").attr("id", result[1].DPCI).attr("src", result[1].image);
+               $(".main2").attr("id", result[2].DPCI).attr("src", result[2].image);
+               $(".main3").attr("id", result[3].DPCI).attr("src", result[3].image);
+               $(".main4").attr("id", result[4].DPCI).attr("src", result[4].image);
+               $(".main5").attr("id", result[5].DPCI).attr("src", result[5].image);
+               $(".main6").attr("id", result[6].DPCI).attr("src", result[6].image);
 			}
 		});
 	});
@@ -180,6 +193,9 @@ function doRegister(){
 function returnHome(){
 	jQuery("#itemDetails").hide();
 	jQuery("#featuredContent").show();
+    $("#radicalMenu").html("<canvas id='radar' width='400' height='400'></canvas>");
+    
+
 }
 
 function loadItem(productId){
@@ -194,34 +210,95 @@ function loadItem(productId){
             result = result[0];
 			jQuery("#itemPic").html("<img src='" + result.PrimaryImage + "'>");
 			jQuery("#productColor1").html(result.Color);
-			/* jQuery("#reviews").html(result.review); */
+			jQuery("#reviews").append(result.review);
 			jQuery("#productName").html(result.Name);
 			jQuery("#productPrice").html(result.Price);
 			/* jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>"); */
 			
-			jQuery("#addToCart").click(function(){
-				cart.push({name:result.Name,price:result.price});
-			});
-			/* 
-			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
-			var radicalGraph = {
+
+
+
+
+            // This will get the first returned node in the jQuery collection.
+
+			var radicalData = [result.Rating.Ease,result.Rating.FabricFeel,result.Rating.QualityOfFit,result.Rating.Coolness,result.Rating.Design];
+			console.log(radicalData);
+            var radicalGraph = {
 				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
 				datasets: [
 					{
 						label: "Product's ratings",
-						fillColor: "rgba(220,220,220,0.2)",
+						fillColor: "rgba(181, 0, 0, 0.7)",
 						strokeColor: "rgba(220,220,220,1)",
 						pointColor: "rgba(220,220,220,1)",
 						pointStrokeColor: "#fff",
-						pointHighlightFill: "#fff",
+						pointHighlightFill: "#b50000",
 						pointHighlightStroke: "rgba(220,220,220,1)",
 						data: radicalData
 					}
 				]
 			}
-			window.myRadar = new Chart(jQuery("#radicalMenu").getContext("2d")).Radar(radicalGraph, {
-				responsive: true
-			}); */
+            // Get the context of the canvas element we want to select
+
+            ctx = $("#radar").get(0).getContext("2d");
+            var option = {
+                //Boolean - Whether to show lines for each scale point
+                scaleShowLine : true,
+
+                //Boolean - Whether we show the angle lines out of the radar
+                angleShowLineOut : true,
+
+                //Boolean - Whether to show labels on the scale
+                scaleShowLabels : false,
+
+                // Boolean - Whether the scale should begin at zero
+                scaleBeginAtZero : true,
+
+                //String - Colour of the angle line
+                angleLineColor : "rgba(0,0,0,.1)",
+
+                //Number - Pixel width of the angle line
+                angleLineWidth : 1,
+
+                //String - Point label font declaration
+                pointLabelFontFamily : "'Arial'",
+
+                //String - Point label font weight
+                pointLabelFontStyle : "normal",
+
+                //Number - Point label font size in pixels
+                pointLabelFontSize : 10,
+
+                //String - Point label font colour
+                pointLabelFontColor : "#666",
+
+                //Boolean - Whether to show a dot for each point
+                pointDot : true,
+
+                //Number - Radius of each point dot in pixels
+                pointDotRadius : 3,
+
+                //Number - Pixel width of point dot stroke
+                pointDotStrokeWidth : 1,
+
+                //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+                pointHitDetectionRadius : 20,
+
+                //Boolean - Whether to show a stroke for datasets
+                datasetStroke : true,
+
+                //Number - Pixel width of dataset stroke
+                datasetStrokeWidth : 2,
+
+                //Boolean - Whether to fill the dataset with a colour
+                datasetFill : true,
+
+                //String - A legend template
+                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+            };
+            radarChart = new Chart(ctx).Radar(radicalGraph);
 		}
 	});
+
 }

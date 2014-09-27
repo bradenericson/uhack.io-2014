@@ -7,6 +7,7 @@
      <link rel="stylesheet" href="css/foundation.css" />
 	<link rel="stylesheet" href="css/colorbox.css" />
       <script src="javascripts/vendor/modernizr.js"></script>
+      <script src="javascripts/Chart.js-master/Chart.min.js"></script>
   </head>
   <body>
     
@@ -33,17 +34,17 @@
     </div>
 
     <div class="row" id="menuBar">
-		<div class="large-12 columns" style="background-color:#b50000" >
-			<div class="large-2 columns menuItems" id="item3680">
+		<div class="large-12 columns" /*style="background-color:#b50000"*/>
+			<div class="large-2 columns menuItems" id="graphictees">
 			   T-Shirts
 			</div>
-			<div class="large-2 columns menuItems" id="item3677">
+			<div class="large-2 columns menuItems" id="jeans">
 				Jeans
 			</div>
-			<div class="large-2 columns menuItems" id="item834002">
+			<div class="large-2 columns menuItems" id="polos">
 				Polos
 			</div>
-			<div class="large-2 columns menuItems" id="item834004">
+			<div class="large-2 columns menuItems" id="casualbuttondowns">
 				Button Ups
 			</div>
 			<div class="large-1 columns"></div>
@@ -58,17 +59,32 @@
       	<div class="panel">
 	        <div class="row">
 				<div class="large-4 medium-4 columns">
-					<img class="featuredItem" id="043-01-0517" src="http://target.scene7.com/is/image/Target/16444291">
+					<img class="featuredItem main1" id="044-13-0072" src="http://target.scene7.com/is/image/Target/15929787">
 				</div>
 	        	<div class="large-4 medium-4 columns">
-	        		<img class="featuredItem" id="043-01-4751" src="http://target.scene7.com/is/image/Target/16248425">
+	        		<img class="featuredItem main2" id="042-15-2363" src="http://target.scene7.com/is/image/Target/15164325">
 	        	</div>
 	        	<div class="large-4 medium-4 columns">
-	        		<img class="featuredItem" id="043-01-0650" src="http://target.scene7.com/is/image/Target/16333675">
+	        		<img class="featuredItem main3" id="043-01-0650" src="http://target.scene7.com/is/image/Target/16333675">
 	        	</div>
 			</div>
       	</div>
       </div>
+        <div class="large-12 columns">
+            <div class="panel">
+                <div class="row">
+                    <div class="large-4 medium-4 columns">
+                        <img class="featuredItem main4" id="043-01-0517" src="http://target.scene7.com/is/image/Target/16444291">
+                    </div>
+                    <div class="large-4 medium-4 columns">
+                        <img class="featuredItem main5" id="043-01-4751" src="http://target.scene7.com/is/image/Target/16248425">
+                    </div>
+                    <div class="large-4 medium-4 columns">
+                        <img class="featuredItem main6" id="041-11-0891" src="http://target.scene7.com/is/image/Target/15364665">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 	<div class="row" id="itemDetails" style="display:none">
@@ -87,7 +103,7 @@
 			<hr/>
 			<div class="row">
 				<div id="reviews" class="large-12 columns">
-					Product Reviews
+					<b>Product Reviews:</b><br>
 				</div>
 			</div>
       	</div>
@@ -102,7 +118,7 @@
 			<hr/>
 			<div class="row">
 				<div id="radicalMenu" class="large-12 columns">
-					Radial Menu
+                    <canvas id="radar" width="400" height="400"></canvas>
 				</div>
 			</div>
 			<hr/>
@@ -121,6 +137,8 @@
 	<a id="loginLink" href="#loginArea"></a>
 	<div style="display:none">
 		<div id="loginArea" class="row">
+            <br>
+            <div style="text-align:center;">Welcome to our site! <br> First time user? Please take a moment to register with us </div>
 			<form>
                 <div class="row">
                     <div class="large-12 columns">
@@ -338,7 +356,11 @@
     
     <script src="javascripts/vendor/jquery.js"></script>
     <script src="javascripts/foundation.min.js"></script>
+
 	<script src="javascripts/page.js"></script>
 	<script src="javascripts/jquery.colorbox-min.js"></script>
+  <style>
+
+  </style>
   </body>
 </html>

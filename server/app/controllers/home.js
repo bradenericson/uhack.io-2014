@@ -128,6 +128,9 @@ router.get('/productDetails', function (req, res, next) {
             }
             //content[i].Availability = data.inventoryAvailabilityMessage;
             //console.log("Availability: " + content[i].Availability);
+
+            content[i].Rating = { Ease: Math.floor(Math.random() * 5 + 1), FabricFeel: Math.floor(Math.random() * 5 + 1), QualityOfFit: Math.floor(Math.random() * 5 + 1), Coolness: Math.floor(Math.random() * 5 + 1), Design: Math.floor(Math.random() * 5 + 1) };
+            content[i].review = global.reviews[Math.floor(Math.random() * global.reviews.length)];
         }
 
         //console.log("Name: " + data.CatalogEntryView[0].title);
@@ -149,6 +152,7 @@ router.get('/productList', function (req, res, next) {
     //var categoryId = req.param('cid'); //categoryId is the ID that the user clicks on. expecting from andrizzle
 
     var categoryName = req.param("category"); //take the category name and match it up to the appropriate categoryId.
+    console.log("categoryName: " + categoryName);
     var categoryId = global.categories[categoryName];
 
     console.log("cid: " + categoryId);
@@ -169,7 +173,8 @@ router.get('/productList', function (req, res, next) {
         // raw response
         console.log("response: " + response);
 
-        data = data["CatalogEntryView"];
+        data = data.CatalogEntryView;
+        console.log(data);
         var content = []; //array of objects
         /*
          each object is an "item"
@@ -180,6 +185,10 @@ router.get('/productList', function (req, res, next) {
 
          if there's any extra "crap" on the different sizes, it's cut off.
          */
+
+        if (data === null || data.length < 0) {
+            res.status(404).send("There was an issue loading the category!");
+        }
 
         for (var i = 0; i < data.length; i++) {//first level
             content[i] = {};
@@ -211,6 +220,9 @@ router.get('/productList', function (req, res, next) {
                 }
             }
 
+            content[i].Rating = { Ease: Math.floor(Math.random() * 5 + 1), FabricFeel: Math.floor(Math.random() * 5 + 1), QualityOfFit: Math.floor(Math.random() * 5 + 1), Coolness: Math.floor(Math.random() * 5 + 1), Design: Math.floor(Math.random() * 5 + 1) };
+            content[i].review = global.reviews[Math.floor(Math.random() * global.reviews.length)];
+
 
         }
 
@@ -228,7 +240,10 @@ router.get('/productList', function (req, res, next) {
                 console.log(resp);
 
 
+                content
 
+
+                res.send(content);
             });
         /*User.where('pants.waist').lte(waist + 2).gte(waist -2)
          .where('pants.length').lte(length +2).gte(waist -2)
@@ -240,7 +255,7 @@ router.get('/productList', function (req, res, next) {
          */
         //Also need to get Name, Price, and Radical Rating System
         //console.log(content);
-        res.send(content); //used to be data -Braden
+        //used to be data -Braden
 
         //Here, go through and check all sizes pertaining to the user. 
 
