@@ -154,15 +154,41 @@ function returnHome(){
 function loadItem(item){
 	jQuery("#featuredContent").hide();
 	jQuery("#itemDetails").show();
-	jQuery("#itemPic").html();
-	jQuery("#productColor1").html();
-	jQuery("#productColor2").html();
-	jQuery("#productColor3").html();
-	jQuery("#productColor4").html();
-	jQuery("#reviews").html();
-	jQuery("#productName").html();
-	jQuery("#productDesigner").html();
-	jQuery("#radicalMenu").html();
-	jQuery("#productPrice").html();
-	jQuery("#productDescription").html();
+	jQuery.ajax({
+		url: "localhost:8080/login",
+		/* data: loginCredentials, */
+		type: "GET",
+		success: function(result){
+			jQuery("#itemPic").html(result.itemPicture);
+			jQuery("#productColor1").html(result.itemColor1);
+			jQuery("#productColor2").html(result.itemColor2);
+			jQuery("#productColor3").html(result.itemColor3);
+			jQuery("#productColor4").html(result.itemColor4);
+			jQuery("#reviews").html(result.review);
+			jQuery("#productName").html(result.productName);
+			jQuery("#productDesigner").html(result.designer);
+			jQuery("#productPrice").html(result.price);
+			jQuery("#productDescription").html(result.description);
+			
+			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
+			var radicalGraph = {
+				labels: ["Data1", "Data2", "Data3", "Data4", "Data5"],
+				datasets: [
+					{
+						label: "Product's ratings",
+						fillColor: "rgba(220,220,220,0.2)",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: radicalData
+					}
+				]
+			}
+			window.myRadar = new Chart(jQuery("#radicalMenu").getContext("2d")).Radar(radicalGraph, {
+				responsive: true
+			});
+		}
+	});
 }
