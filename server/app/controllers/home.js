@@ -127,9 +127,12 @@ router.get('/productDetails', function (req, res, next) {
                 }
             }
             //null check for availability
-            if (data.inventoryAvailabilityMessage) {
-                console.log("Availability: " + content[i].Availability);
+            if (data.isPropertyOf("inventoryAvailabilityMessage")) {
                 content[i].Availability = data.inventoryAvailabilityMessage;
+                console.log("Availability: " + content[i].Availability);
+            }
+            else {
+                content[i].Availability = null;
             }
         }
 
