@@ -66,12 +66,17 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery(".menuItems").click(function(){
-		var categoryNumber = jQuery(this).attr("id").substring(4,jQuery(this).attr("id").length);
+		var categoryNumber = jQuery(this).attr("id");
+        console.log("categoryNumber: " + categoryNumber);
 		jQuery.ajax({
-			url: "/productlist",
+			url: "/productlist?category=",
 			data: categoryNumber,
 			type: "GET",
 			success: function(result){
+               jQuery(".featuredItem").each(function(ele, index) {
+                   $(this).attr("id", result[index].id);
+                   $(this).attr("src", result[index].fullImage);
+               });
 			}
 		});
 	});

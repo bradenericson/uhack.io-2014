@@ -152,6 +152,7 @@ router.get('/productList', function (req, res, next) {
     //var categoryId = req.param('cid'); //categoryId is the ID that the user clicks on. expecting from andrizzle
 
     var categoryName = req.param("category"); //take the category name and match it up to the appropriate categoryId.
+    console.log("categoryName: " + categoryName);
     var categoryId = global.categories[categoryName];
 
     console.log("cid: " + categoryId);
@@ -172,7 +173,8 @@ router.get('/productList', function (req, res, next) {
         // raw response
         console.log("response: " + response);
 
-        data = data["CatalogEntryView"];
+        data = data.CatalogEntryView;
+        console.log(data);
         var content = []; //array of objects
         /*
          each object is an "item"
@@ -183,6 +185,10 @@ router.get('/productList', function (req, res, next) {
 
          if there's any extra "crap" on the different sizes, it's cut off.
          */
+
+        if (data === null || data.length < 0) {
+            res.status(404).send("There was an issue loading the category!");
+        }
 
         for (var i = 0; i < data.length; i++) {//first level
             content[i] = {};
