@@ -1,4 +1,5 @@
 var loggedInUser;
+var cart = [];
 
 jQuery(document).foundation({
 	slider: {
@@ -63,6 +64,27 @@ jQuery(document).ready(function(){
 	jQuery("#logo").click(function(){
 		returnHome();
 	});
+	
+	jQuery(".menuItems").click(function(){
+		var categoryNumber = jQuery(this).attr("id").substring(4,jQuery(this).attr("id").length);
+		jQuery.ajax({
+			url: "/productlist",
+			data: categoryNumber,
+			type: "GET",
+			success: function(result){
+			}
+		});
+	});
+	
+	jQuery("#cart").click(function(){
+		jQuery("#cartLink").colorbox({open:true, inline:true, width:"40%", height:"75%", fixed:true});
+		var cartTable = "<table><tr><td>Product</td><td>Price</td></tr>";
+		for(var i=0;i<cart.length;i++){
+			cartTable = cartTable + "<tr><td>" + cart[i].name + "</td><td>" + cart[i].price + "</td></tr>";
+		}
+		cartTable = cartTable + "</table>";
+		jQuery("#cartTable").html(cartTable);
+	});
 });
 
 function setLoggedInUser(userInfo){
@@ -80,7 +102,6 @@ function doLogin(email,password){
 		data: loginCredentials,
 		type: "GET",
 		success: function(result){
-            console.log(result);
 			var user = {};
 			user.firstName = result.name.first;
 			user.LastName = result.name.last;
@@ -140,7 +161,7 @@ function doRegister(){
 	}
 	
 	if(validates == true){
-		var registrationInfo = {firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
+		var registrationInfo = {password:password, firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
 		jQuery.ajax({
 			url: "/register",
 			data: registrationInfo,
@@ -169,20 +190,24 @@ function loadItem(productId){
 		data: productId,
 		type: "GET",
 		success: function(result){
-			jQuery("#itemPic").html(result.itemPicture);
-			jQuery("#productColor1").html(result.itemColor1);
-			jQuery("#productColor2").html(result.itemColor2);
-			jQuery("#productColor3").html(result.itemColor3);
-			jQuery("#productColor4").html(result.itemColor4);
+			jQuery("#itemPic").html(result.PrimaryImage);
+			jQuery("#productColor1").html(result.Color);
 			jQuery("#reviews").html(result.review);
-			jQuery("#productName").html(result.productName);
-			jQuery("#productDesigner").html(result.designer);
-			jQuery("#productPrice").html(result.price);
-			jQuery("#productDescription").html(result.description);
+			jQuery("#productName").html(result.Name);
+			jQuery("#productPrice").html(result.Price);
+			var inStock = result.Availability;
+			if(!inStock){
+				jQuery("#buyItem").html("Out of stock.");
+			} else {
+				jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>");
+				jQuery("#addToCart").click(function(){
+					cart.push({name:result.Name,price:result.price});
+				});
+			}
 			
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
-				labels: ["Data1", "Data2", "Data3", "Data4", "Data5"],
+				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
 				datasets: [
 					{
 						label: "Product's ratings",
