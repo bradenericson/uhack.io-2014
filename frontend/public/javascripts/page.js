@@ -145,3 +145,24 @@ function doRegister(){
 		jQuery("#registerErrors").show();
 	}
 }
+
+function returnHome(){
+	jQuery("#itemDetails").hide();
+	jQuery("#featureContent").show();
+}
+
+function loadItem(item){
+	jQuery("#featuredContent").hide();
+	jQuery("#itemDetails").show();
+	jQuery("#itemPic").html();
+	jQuery("#productColor1").html();
+	jQuery("#productColor2").html();
+	jQuery("#productColor3").html();
+	jQuery("#productColor4").html();
+	jQuery("#reviews").html();
+	jQuery("#productName").html();
+	jQuery("#productDesigner").html();
+	jQuery("#radicalMenu").html();
+	jQuery("#productPrice").html();
+	jQuery("#productDescription").html();
+}
