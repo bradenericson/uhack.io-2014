@@ -1,3 +1,5 @@
+//hah those front-end noobs are noobs
+
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
@@ -41,6 +43,10 @@ router.get('/productList', function (req, res, next) {
 
     console.log("about to make the restful api call!");
 
+    if (categoryId == null){
+        categoryId = 3675; //root level taxonomy
+    }
+
     var resourceUri = "http://api.target.com/v2/products/categories/" + categoryId + "?depth=5&type=online&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF";
 
     client.get(resourceUri, function(data, response){
@@ -48,8 +54,9 @@ router.get('/productList', function (req, res, next) {
         console.log("data : " + data);
         // raw response
         console.log("response: " + response);
-    });
 
+        res.send(data);
+    });
 
 });
 
