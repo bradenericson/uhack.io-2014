@@ -14,7 +14,14 @@ jQuery(document).foundation({
 });
 
 jQuery(document).ready(function(){
-	jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	if(loggedInUser == null){
+		jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	}
+	
+	jQuery("#guestSkip").click(function(){
+		setLoggedInUser(null);
+		jQuery("#loginLink").colorbox.remove();
+	});
 	
 	jQuery("#loginButton").click(function(){
 		var validates = true;
@@ -50,7 +57,11 @@ jQuery(document).ready(function(){
 });
 
 function setLoggedInUser(userInfo){
-	jQuery("#displayUsername").html(userInfo.email);
+	var user = "Guest";
+	if(userInfo != null) {
+		user = userInfo.email;
+	}
+	jQuery("#displayUsername").html(user);
 }
 
 function doLogin(email,password){
