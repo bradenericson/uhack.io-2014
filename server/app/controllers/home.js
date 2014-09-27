@@ -229,7 +229,7 @@ router.get('/kick', function(req,res,next){
     res.send({message: "KICK!"});
 });
 
-router.post('/register', cors(corsOptions), function(req, res, next) {
+router.post('/register', function(req, res, next) {
 
     var userProperties = {
         name: {
@@ -252,7 +252,7 @@ router.post('/register', cors(corsOptions), function(req, res, next) {
 
     var newUser = new User(userProperties);
     newUser.save(function (err) {
-        if (err) return handleError(err);
+        if (err) return err;
         // saved!
         console.log("USER ADDED SUCCESSFULLY!");
         res.send({"message": "Success :)"});

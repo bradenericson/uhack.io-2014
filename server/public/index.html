@@ -1,0 +1,319 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TruFit</title>
+     <link rel="stylesheet" href="css/foundation.css" />
+	<link rel="stylesheet" href="css/colorbox.css" />
+      <script src="javascripts/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    
+	<div class="row">
+      <div class="large-12 columns">
+		<div class="large-9 columns"></div>
+			<div id="displayUsername" class="large-3 columns">
+				Not Logged In
+			</div>
+		</div>
+    </div>
+
+    <div id="logoBoxHolder">
+		<div id="logoBox">
+			<img id="logo" src="img/logo1.png">
+		</div>
+	</div>
+
+    <div class="row" id="menuBar">
+      <div class="large-12 columns">
+
+		<div class="large-2 columns menuItems" id="menu11">
+           Menu Item 1
+		</div>
+        <div class="large-2 columns menuItems" id="menu12">
+			Menu Item 2
+		</div>
+		<div class="large-2 columns menuItems" id="menu13">
+			Menu Item 3
+		</div>
+		<div class="large-2 columns menuItems" id="menu14">
+			Menu Item 4
+		</div>
+		<div class="large-1 columns"></div>
+        </tr>
+		<div class="large-3 columns">
+			<input type="text" placeholder="Search" />
+		</div>
+      </div>
+    </div>
+    
+    <div class="row" id="featuredContent">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <div class="row">
+				<div class="large-4 medium-4 columns">
+					<img class="featuredItem" id="featured1" src="img/guy1.jpg">
+				</div>
+	        	<div class="large-4 medium-4 columns">
+	        		<img class="featuredItem" id="featured2" src="img/girlPants1.jpg">
+	        	</div>
+	        	<div class="large-4 medium-4 columns">
+	        		<img class="featuredItem" id="featured3" src="img/guy3.jpg">
+	        	</div>        
+			</div>
+      	</div>
+      </div>
+    </div>
+	
+	<div class="row" id="itemDetails" style="display:none">
+      <div class="large-6 columns">
+      	<div class="panel">
+	        <div class="row">
+				<div id="itemPic" class="large-12 columns">
+					Item Picture
+				</div>    
+			</div>
+			<div class="row">
+				<div id="productColor1" class="large-3 columns">
+					Color 1
+				</div> 
+				<div id="productColor2" class="large-3 columns">
+					Color 2
+				</div> 
+				<div id="productColor3" class="large-3 columns">
+					Color 3
+				</div> 
+				<div id="productColor4" class="large-3 columns">
+					Color 4
+				</div> 
+			</div>
+			<hr/>
+			<div class="row">
+				<div id="reviews" class="large-12 columns">
+					Product Reviews
+				</div>    
+			</div>
+      	</div>
+      </div>
+	  <div class="large-6 columns">
+      	<div class="panel">
+	        <div class="row">
+				<div id="productName" class="large-12 columns">
+					Product Name
+				</div>
+			</div>
+			<div>
+				<div id="productDesigner" class="large-12 columns">
+					Designer
+				</div> 				
+			</div>
+			<hr/>
+			<div class="row">
+				<div id="radicalMenu" class="large-12 columns">
+					Radial Menu
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div id="productPrice" class="large-6 columns">
+					Price
+				</div>
+				<div id="buyItem" class="large-6 columns">
+					Add to cart
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div id="productDescription" class="large-12 columns">
+					Product Description
+				</div>
+			</div>
+      	</div>
+      </div>
+    </div>
+
+	<a id="loginLink" href="#loginArea"></a>
+	<div style="display:none">
+		<div id="loginArea" class="row">
+			<form>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-12 columns">
+                               <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="large-12 columns">
+                            <label>Email
+                                <input id="loginEmail" type="text" placeholder="Email" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Password
+								<input id="loginPassword" type="password" placeholder="Password" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div id="loginErrors" style="display:none" data-alert class="alert-box alert radius">
+					<a href="#" class="close">&times;</a>
+				</div>
+				
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-4 columns">
+							<button type="button" id="loginButton">Login</button>
+						</div>
+						<div class="large-4 columns">
+							<button type="button" id="openRegister">Register</button>
+						</div>
+						<div class="large-4 columns">
+							<button type="button" id="guestSkip">Continue As Guest</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<a id="registerLink" href="#registerArea"></a>
+	<div style="display:none">
+		<div id="registerArea" class="row">
+			<form>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Email
+								<input id="registerEmail" type="text" placeholder="Email" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-6 columns">
+							<label>Password
+								<input id="registerPassword" type="password" placeholder="Password" />
+							</label>
+						</div>
+						<div class="large-6 columns">
+							<label>Confirm Password
+								<input id="registerConfirm" type="password" placeholder="Password" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-6 columns">
+							<label>First Name
+								<input id="registerFirstName" type="text" placeholder="First Name" />
+							</label>
+						</div>
+						<div class="large-6 columns">
+							<label>Last Name
+								<input id="registerLastName" type="text" placeholder="Last Name" />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Gender
+								<select id="registerGender">
+									<option value=""></option>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Height: <span id="heightValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 48; end: 84;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="heightSlider" type="hidden">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Waist Size: <span id="waistValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 20; end: 55;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="waistSlider" type="hidden">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<div>Pants Length: <span id="pantsValue"></span></div>
+							<div class="range-slider" data-slider data-options="start: 20; end: 40;">
+								<span class="range-slider-handle" role="slider" tabindex="0"></span>
+								<span class="range-slider-active-segment"></span>
+								<input id="pantsSlider" type="hidden">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-12 columns">
+							<label>Standard Shirt Size
+								<select id="registerShirtSize">
+									<option value=""></option>
+									<option value="xxs">XXS</option>
+									<option value="xs">XS</option>
+									<option value="s">S</option>
+									<option value="m">M</option>
+									<option value="l">L</option>
+									<option value="xl">XL</option>
+									<option value="2xl">2XL</option>
+									<option value="3xl">3XL</option>
+								</select>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div id="registerErrors" style="display:none" data-alert class="alert-box alert radius">
+					<a href="#" class="close">&times;</a>
+				</div>
+				
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="large-5 columns">
+						</div>
+						<div class="large-7 columns">
+							<button type="button" id="newUser">Register</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+    
+    <script src="javascripts/vendor/jquery.js"></script>
+    <script src="javascripts/foundation.min.js"></script>
+	<script src="javascripts/page.js"></script>
+	<script src="javascripts/jquery.colorbox-min.js"></script>
+  </body>
+</html>

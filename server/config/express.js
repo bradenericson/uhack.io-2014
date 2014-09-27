@@ -3,6 +3,7 @@ var glob = require('glob');
 
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
@@ -18,10 +19,22 @@ module.exports = function(app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+
+    app.use(cors());
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+
+
+
+    app.get('/', function(req, res, next) {
+        // Handle the get for this route
+    });
+
+    app.post('/', function(req, res, next) {
+        // Handle the post for this route
+    });
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {

@@ -76,9 +76,9 @@ function setLoggedInUser(userInfo){
 function doLogin(email,password){
 	var loginCredentials = {email:email,password:password};
 	jQuery.ajax({
-		url: "10.20.159.210:8080/login",
+		url: "localhost:8080/login",
 		data: loginCredentials,
-		type: "GET",
+		type: "POST",
 		success: function(result){
 			var user;
 			user.firstName = result.name.first;
@@ -139,14 +139,13 @@ function doRegister(){
 	}
 	
 	if(validates == true){
-		var registrationInfo = {password:password, firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
-		console.log(registrationInfo);
+		var registrationInfo = {firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
 		jQuery.ajax({
-			url: "10.20.159.210:8080/register",
+			url: "/register",
 			data: registrationInfo,
 			type: "POST",
 			success: function(){
-				doLogin(username,password);
+				doLogin(email,password);
 			}
 		});
 		jQuery("#registerLink").colorbox.remove();
@@ -165,7 +164,7 @@ function loadItem(productId){
 	jQuery("#featuredContent").hide();
 	jQuery("#itemDetails").show();
 	jQuery.ajax({
-		url: "10.20.159.210:8080/login",
+		url: "localhost:8080/login",
 		data: productId,
 		type: "GET",
 		success: function(result){
@@ -182,7 +181,7 @@ function loadItem(productId){
 			
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
-				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
+				labels: ["Data1", "Data2", "Data3", "Data4", "Data5"],
 				datasets: [
 					{
 						label: "Product's ratings",
