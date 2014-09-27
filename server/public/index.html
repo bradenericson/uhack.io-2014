@@ -7,6 +7,7 @@
      <link rel="stylesheet" href="css/foundation.css" />
 	<link rel="stylesheet" href="css/colorbox.css" />
       <script src="javascripts/vendor/modernizr.js"></script>
+      <script src="javascripts/Chart.js-master/Chart.min.js"></script>
   </head>
   <body>
     
@@ -84,7 +85,7 @@
 			<hr/>
 			<div class="row">
 				<div id="reviews" class="large-12 columns">
-					Product Reviews
+					<b>Product Reviews:</b><br>
 				</div>
 			</div>
       	</div>
@@ -99,7 +100,7 @@
 			<hr/>
 			<div class="row">
 				<div id="radicalMenu" class="large-12 columns">
-					Radial Menu
+                    <canvas id="radicalMenu" width="400" height="400"></canvas>
 				</div>
 			</div>
 			<hr/>
@@ -333,6 +334,7 @@
     
     <script src="javascripts/vendor/jquery.js"></script>
     <script src="javascripts/foundation.min.js"></script>
+
 	<script src="javascripts/page.js"></script>
 	<script src="javascripts/jquery.colorbox-min.js"></script>
   </body>

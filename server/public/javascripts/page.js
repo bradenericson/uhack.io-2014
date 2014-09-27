@@ -194,7 +194,7 @@ function loadItem(productId){
             result = result[0];
 			jQuery("#itemPic").html("<img src='" + result.PrimaryImage + "'>");
 			jQuery("#productColor1").html(result.Color);
-			/* jQuery("#reviews").html(result.review); */
+			jQuery("#reviews").append(result.review);
 			jQuery("#productName").html(result.Name);
 			jQuery("#productPrice").html(result.Price);
 			/* jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>"); */
@@ -202,8 +202,12 @@ function loadItem(productId){
 			jQuery("#addToCart").click(function(){
 				cart.push({name:result.Name,price:result.price});
 			});
-			/* 
-			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
+
+
+
+            // This will get the first returned node in the jQuery collection.
+
+			var radicalData = [result.Rating.Ease,result.FabricFeel,result.Rating.QualityOfFit,result.Rating.Coolness,result.Rating.Design];
 			var radicalGraph = {
 				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
 				datasets: [
@@ -219,9 +223,10 @@ function loadItem(productId){
 					}
 				]
 			}
-			window.myRadar = new Chart(jQuery("#radicalMenu").getContext("2d")).Radar(radicalGraph, {
-				responsive: true
-			}); */
+            // Get the context of the canvas element we want to select
+            //var ctx = document.getElementById("radicalMenu").getContext("2d");
+            var ctx = $("#radicalMenu").get(0).getContext("2d");
+            var myNewChart = new Chart(ctx).Radar(radicalGraph);
 		}
 	});
 }
