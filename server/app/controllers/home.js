@@ -180,13 +180,46 @@ router.post('/register', function(req, res, next) {
 
 });
 
+router.post('/test', function(req, res, next){
+   var test = req.param('test');
+    console.log(test);
+    res.send({test: test});
+});
+
 router.post('/login', function(req, res, next) {
     var email = req.param('email');
     var password = req.param('password');
 
-    //User.find( { email: email, password: password })
-    User.where('email').equals(email).exec(function(res){
-        console.log("inside callback:" + res);
-    });
+
+   console.log(req.body);
+    //console.log("email: " + req.body.email);
+    //console.log("password: " + req.body.password);
+
+    res.send({"no": "no dice"});
+
+//    // find each person with a last name matching 'Ghost'
+//    var query = User.findOne({ 'email': email });
+//
+//// selecting the `name` and `occupation` fields
+//    query.select('name');
+//
+//    // execute the query at a later time
+//    query.exec(function (err, User) {
+//        if (err) return handleError(err);
+//        console.log('%s %s', User.name.first, User.name.last) // Space Ghost is a talk show host.
+//    });
+
+
+    //User.find( { email: email, password: password });
+
+//    User.find( { email: email, password: password }).toArray(function(err, items) {
+//        console.log(items);
+//        res.send(items);
+//    });
+
+    User.find({ email: email, password: password });
+//    User.where('email').equals(email).exec(function(res){
+//        console.log("inside callback:" + res);
+//    });
 });
 
