@@ -12,6 +12,17 @@ jQuery(document).foundation({
 });
 
 jQuery(document).ready(function(){
-	jQuery("#loginLink").colorbox({open:true, inline:true});
-	jQuery("#loginLink").colorbox({inline:true});
+	jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	
+	jQuery("#loginButton").click(function(){
+		doLogin();
+	});
+	jQuery("#openRegister").click(function(){
+		jQuery("#loginLink").colorbox.remove();
+		jQuery("#registerLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
+	});
 });
+
+function doLogin(){
+	
+}
