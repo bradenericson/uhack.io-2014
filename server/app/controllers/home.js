@@ -13,7 +13,7 @@ global.categories = {
     "pants&shorts": 3688, "tops": 3689,
     "activewear": 3676, "jeans": 3677,
     "outerwear": 3678, "pants": 3679,
-    "graphic tees": 833001, "shortsleevetees": 834001,
+    "graphictees": 833001, "shortsleevetees": 834001,
     "polos": 834002, "dressshirts": 834003, "casualbuttondowns": 834004,
     "longsleevetees": 834005, "shirts": 3680,
     "shorts": 3681, "bottoms": 3690,
@@ -28,7 +28,13 @@ global.reviews = [
     "Very Comfortable light fabric and get lots of comments too!!",
     "My son gets so many compliments on this shirt. My nephew just saw it on him and liked it so much that I sent one to him.",
     "I bought a shirt for my husband...and a small for myself! The shirt has a really cool design. Plus, the material is super cozy and soft! One of my favorites!",
-    "My husband loved it. He was so surprised. He even gets attention when he wears it. People ask where he got it."
+    "My husband loved it. He was so surprised. He even gets attention when he wears it. People ask where he got it.",
+    "I bought these for my son, and he says they fit well and are comfortable.",
+    "True to size good quality",
+    "This article of clothing is really nice for the price the fit was on point. The color was good. No complaints, would give it 5 stars but nothing is perfect.",
+    "When I saw these on sale, I thought it was time to buy some new clothes. They look good, fit well, and are very comfortable. Most importantly, they are way less expensive than elsewhere!."
+
+
 ];
 
 var Client = require('node-rest-client').Client;
@@ -147,7 +153,7 @@ router.get('/productList', function (req, res, next) {
 
     console.log("about to make the restful api call!");
 
-    if (categoryId == null) {
+    if (categoryId === null) {
         categoryId = 3675; //root level taxonomy
     }
 
@@ -185,6 +191,13 @@ router.get('/productList', function (req, res, next) {
                     content[i].name = data[i].ItemAttributes[0].Attribute[k].description;
                 }
             }
+
+           content[i].price = data[i].Offers[0].OfferPrice[0].formattedPriceValue;
+           content[i].image = data[i].fullImage;
+
+
+
+
             //fix the sizes array
             if (content[i].sizes !== undefined) {
                 content[i].sizes = content[i].sizes.split(","); //turns string into array seperated by ","
@@ -227,6 +240,10 @@ router.get('/productList', function (req, res, next) {
         //Here, go through and check all sizes pertaining to the user. 
 
     });//end client.get();
+
+});
+
+router.get('/promotion', function(req, res, next) {
 
 });
 
