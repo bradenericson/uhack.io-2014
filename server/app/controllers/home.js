@@ -126,14 +126,8 @@ router.get('/productDetails', function (req, res, next) {
                     content[i].Color = data[0].VariationAttributes[j].value;
                 }
             }
-            //null check for availability
-            if (data.isPropertyOf("inventoryAvailabilityMessage")) {
-                content[i].Availability = data.inventoryAvailabilityMessage;
-                console.log("Availability: " + content[i].Availability);
-            }
-            else {
-                content[i].Availability = null;
-            }
+            //content[i].Availability = data.inventoryAvailabilityMessage;
+            //console.log("Availability: " + content[i].Availability);
         }
 
         //console.log("Name: " + data.CatalogEntryView[0].title);
