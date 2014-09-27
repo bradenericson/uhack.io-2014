@@ -17,7 +17,9 @@ router.get('/', function (req, res, next) {
     });
   });
 
-
 });
 
 
+router.get('/productDetails', function (req, res, next) {
+    console.log("in the product details!");
+});
