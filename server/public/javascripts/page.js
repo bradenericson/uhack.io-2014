@@ -76,7 +76,7 @@ function setLoggedInUser(userInfo){
 function doLogin(email,password){
 	var loginCredentials = {email:email,password:password};
 	jQuery.ajax({
-		url: "localhost:8080/login",
+		url: "/login",
 		data: loginCredentials,
 		type: "POST",
 		success: function(result){
@@ -164,7 +164,7 @@ function loadItem(productId){
 	jQuery("#featuredContent").hide();
 	jQuery("#itemDetails").show();
 	jQuery.ajax({
-		url: "localhost:8080/login",
+		url: "/productDetails",
 		data: productId,
 		type: "GET",
 		success: function(result){
