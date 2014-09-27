@@ -30,8 +30,10 @@ var UserSchema = new Schema({
     gender: String,         //m or f
     height: Number,         //height in inches
     shirt: String,          //t-shirt size
-    legLength: Number,      //pants length
-    waist: Number,           //waist size
+    pants: {
+        length: Number,
+        waist: Number
+    },
     reviews: Array          //holds the reviews written by the user
 });
 

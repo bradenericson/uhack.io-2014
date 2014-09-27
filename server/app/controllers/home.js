@@ -3,8 +3,8 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article'),
   User = mongoose.model('User');
+ // User = mongoose.model('User');
 
 var Client = require('node-rest-client').Client;
 client = new Client();
@@ -15,13 +15,13 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
 
-  Article.find(function (err, articles) {
+ /* Article.find(function (err, articles) {
     if (err) return next(err);
     res.render('index', {
       title: 'Generator-Express MVC',
       articles: articles
     });
-  });
+  });*/
 
 });
 
@@ -61,20 +61,31 @@ router.get('/productList', function (req, res, next) {
 });
 
 
-router.get('/userRegistration', function(req, res, next) {
-    var firstName = req.param('firstName');
-    var lastName = req.param('lastName');
-    var email = req.param('email');
-    var gender = req.param('gender');
-    var height = req.param('height');
-    var shirtSize = req.param('shirtSize');
-    var pants = {
-        length: req.param('pantsLength'),
-        waist: req.param('waist')
+router.post('/userRegistration', function(req, res, next) {
+    var userProperties = {
+        name: {
+            first: req.param('firstName'),
+            last:  req.param('lastName')
+        },
+        email: req.param('email'),
+        gender: req.param('gender'),
+        height: req.param('height'),
+        shirtSize: req.param('shirtSize'),
+        pants: {
+            length: req.param('pantsLength'),
+            waist: req.param('waist')
+        },
+        reviews: []
     };
 
 
-
+    var newUser = new User(userProperties);
+    newUser.save(function (err) {
+        if (err) return handleError(err);
+        // saved!
+        console.log("USER ADDED SUCCESSFULLY!");
+        res.send({"message": "Success :)"});
+    });
 
 
 });
