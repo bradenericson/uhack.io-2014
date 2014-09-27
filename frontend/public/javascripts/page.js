@@ -1,3 +1,5 @@
+var loggedInUser;
+
 jQuery(document).foundation({
 	slider: {
 		on_change: function(){
@@ -47,14 +49,27 @@ jQuery(document).ready(function(){
 	});
 });
 
+function setLoggedInUser(userInfo){
+	jQuery("#displayUsername").html(userInfo.email);
+}
+
 function doLogin(email,password){
 	var loginCredentials = {email:email,password:password};
 	jQuery.ajax({
 		url: "localhost:8080/login",
 		data: loginCredentials,
 		type: "GET",
-		success: function(){
-			//TODO set the logged in user
+		success: function(result){
+			var user;
+			user.firstName = result.name.first;
+			user.LastName = result.name.last;
+			user.email = result.email;
+			user.gender = result.gender;
+			user.height = result.height;
+			user.shirt = result.shirtSize;
+			user.pants = result.pantsLength;
+			user.waist = result.waist;
+			setLoggedInUser(user);
 			jQuery("#loginLink").colorbox.remove();
 		}
 	});
