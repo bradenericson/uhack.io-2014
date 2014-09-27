@@ -200,7 +200,7 @@ function loadItem(productId){
 			/* jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>"); */
 			
 			jQuery("#addToCart").click(function(){
-				cart.push({name:result.Name,price:result.price});
+				cart.push({name:result.Name,price:result.Price});
 			});
 
 
