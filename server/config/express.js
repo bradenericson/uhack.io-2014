@@ -29,6 +29,7 @@ module.exports = function(app, config) {
   });
 
   app.use(function (req, res, next) {
+      console.log("i'm here");
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
