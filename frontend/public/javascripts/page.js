@@ -139,7 +139,8 @@ function doRegister(){
 	}
 	
 	if(validates == true){
-		var registrationInfo = {firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
+		var registrationInfo = {password:password, firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
+		console.log(registrationInfo);
 		jQuery.ajax({
 			url: "10.20.159.210:8080/register",
 			data: registrationInfo,
@@ -181,7 +182,7 @@ function loadItem(productId){
 			
 			var radicalData = [result.radical.data1,result.radical.data2,result.radical.data3,result.radical.data4,result.radical.data5];
 			var radicalGraph = {
-				labels: ["Data1", "Data2", "Data3", "Data4", "Data5"],
+				labels: ["Ease of Washing", "Fabric Feel", "Quality of Fit", "Coolness", "Design"],
 				datasets: [
 					{
 						label: "Product's ratings",
