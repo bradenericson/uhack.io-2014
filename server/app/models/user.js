@@ -21,6 +21,10 @@ types:
  */
 
 var UserSchema = new Schema({
+    name: {
+        first: String,      //first name
+        last: String        //last name
+    },
     email: String,          //email (acts as primary key)
     password: String,       //plaintext password
     gender: String,         //m or f
@@ -31,9 +35,9 @@ var UserSchema = new Schema({
     reviews: Array          //holds the reviews written by the user
 });
 
-UserSchema.virtual('date')
+UserSchema.virtual('fullname')
     .get(function(){
-        return this._id.getTimestamp();
+        return this.name.first + " " + this.name.last;
     });
 
 mongoose.model('User', UserSchema);

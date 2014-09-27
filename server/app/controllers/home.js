@@ -1,7 +1,8 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article');
+  Article = mongoose.model('Article'),
+  User = mongoose.model('User');
 
 var Client = require('node-rest-client').Client;
 client = new Client();
@@ -57,6 +58,16 @@ router.get('/userRegistration', function(req, res, next) {
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
     var email = req.param('email');
+    var gender = req.param('gender');
+    var height = req.param('height');
+    var shirtSize = req.param('shirtSize');
+    var pants = {
+        length: req.param('pantsLength'),
+        waist: req.param('waist')
+    };
+
+
+
 
 
 });

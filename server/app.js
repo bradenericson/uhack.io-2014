@@ -9,9 +9,7 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-if(config.isFirst){
-    //initialize database and fake users
-}
+
 
 var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
@@ -19,6 +17,9 @@ models.forEach(function (model) {
 });
 var app = express();
 
+if(config.isFirst){
+    //create fake users and reviews
+}
 require('./config/express')(app, config);
 
 app.listen(config.port);
