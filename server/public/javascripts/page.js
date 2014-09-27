@@ -78,9 +78,10 @@ function doLogin(email,password){
 	jQuery.ajax({
 		url: "/login",
 		data: loginCredentials,
-		type: "POST",
+		type: "GET",
 		success: function(result){
-			var user;
+            console.log(result);
+			var user = {};
 			user.firstName = result.name.first;
 			user.LastName = result.name.last;
 			user.email = result.email;
