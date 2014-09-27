@@ -60,6 +60,14 @@ router.get('/', function (req, res, next) {
 
 });
 
+var html ="<!DOCTYPE HTML><script src='//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js' master='http://localhost:8081'></script>";
+
+router.get('/proxy.html', function(req,res,next){
+    res.writeHeader(200, {"Content-Type": "text/html"});  // <-- HERE!
+    res.write(html);  // <-- HERE!
+    res.end();
+});
+
 //ProductDetails controller Action
 router.get('/productDetails', function (req, res, next) {
     console.log("in the product details!");
@@ -193,7 +201,6 @@ router.get('/productList', function (req, res, next) {
         //Do some processing here to filter the products according to user information that I query from Mongo.
 
         User.find({"pants.waist": waist, gender: gender, "pants.length": length})
-
             .exec(function(err, resp){
             console.log(err);
             console.log(resp);

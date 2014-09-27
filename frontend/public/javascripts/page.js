@@ -76,7 +76,7 @@ function setLoggedInUser(userInfo){
 function doLogin(email,password){
 	var loginCredentials = {email:email,password:password};
 	jQuery.ajax({
-		url: "localhost:8080/login",
+		url: "10.20.159.210:8080/login",
 		data: loginCredentials,
 		type: "GET",
 		success: function(result){
@@ -141,7 +141,7 @@ function doRegister(){
 	if(validates == true){
 		var registrationInfo = {firstName:firstName, lastName:lastName, email:email, gender:gender, height:height, shirtSize:shirt, pantsLength:pants, waist:waist};
 		jQuery.ajax({
-			url: "localhost:8080/register",
+			url: "10.20.159.210:8080/register",
 			data: registrationInfo,
 			type: "POST",
 			success: function(){
@@ -164,7 +164,7 @@ function loadItem(productId){
 	jQuery("#featuredContent").hide();
 	jQuery("#itemDetails").show();
 	jQuery.ajax({
-		url: "localhost:8080/login",
+		url: "10.20.159.210:8080/login",
 		data: productId,
 		type: "GET",
 		success: function(result){
