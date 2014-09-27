@@ -20,6 +20,10 @@ jQuery(document).ready(function(){
 	if(loggedInUser == null){
 		jQuery("#loginLink").colorbox({open:true, inline:true, escKey:false, overlayClose:false, trapFocus:true, width:"75%", height:"75%", fixed:true});
 	}
+
+    jQuery("#addToCart").click(function(){
+        cart.push({name:jQuery("#productName").html(),price:jQuery("#productPrice").html()});
+    });
 	
 	jQuery("#guestSkip").click(function(){
 		setLoggedInUser(null);
@@ -211,9 +215,7 @@ function loadItem(productId){
 			jQuery("#productPrice").html(result.Price);
 			/* jQuery("#buyItem").html("<button id='addToCart' type='button'>Add to Cart.</button>"); */
 			
-			jQuery("#addToCart").click(function(){
-				cart.push({name:result.Name,price:result.Price});
-			});
+
 
 
 
@@ -298,4 +300,5 @@ function loadItem(productId){
             radarChart = new Chart(ctx).Radar(radicalGraph);
 		}
 	});
+
 }
