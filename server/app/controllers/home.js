@@ -6,6 +6,7 @@ var express = require('express'),
     User = mongoose.model('User');
 // User = mongoose.model('User');
 
+//Ensure that Andrizzle follows the name appropriately in the GET request
 var global = {};
 global.categories = {
     "blazers&jackets" : 921501, "sweatshirts&sweatpants" : 1033018,
@@ -65,10 +66,35 @@ router.get('/productDetails', function (req, res, next) {
         console.log("data is not null");
         //Sending Andrizzle all of the information about the product. Namely: Name, Images URLs, Size,
         //Colors, Related Reviews (requires filtration), Online availability, and Price.
-        console.log("Name: " + data.CatalogEntryView[0].title);
-        console.log("Price: " + data.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue);
 
-        res.send(data);
+        data = data['CatalogEntryView'];
+        var content = [];
+
+        for(var i = 0; i < data.length; i++) {
+            content[i] = {};
+            content[i].Name = data[0].title;
+            console.log("data.title: " + data[0].title);
+            content[i].PrimaryImage = data[0].Images[0].PrimaryImage[0].image;
+            content[i].Color = "";
+            content[i].Price = data[0].Offers[0].OfferPrice[0].formattedPriceValue;
+            console.log("Price: " + content[i].Price);
+            for(var j = 0; j < data[0].VariationAttributes.length; j++) {
+                if (data[0].VariationAttributes[j].name === "COLOR") {
+                    content[i].Color = data[0].VariationAttributes[j].value;
+                }
+            }
+            //null check for availability
+            if (data.inventoryAvailabilityMessage) {
+                console.log("Availability: " + content[i].Availability);
+            }
+        }
+
+        //console.log("Name: " + data.CatalogEntryView[0].title);
+        //console.log("Price: " + data.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue);
+
+        res.send(content);
+
+        //Now to return content to Andrew for him to handle...
 
     });//end client.get();
 });
@@ -79,7 +105,11 @@ router.get('/productList', function (req, res, next) {
     console.log("in the product list!");
     console.log("res: " + res);
 
-    var categoryId = req.param('cid'); //categoryId is the ID that the user clicks on. expecting from andrizzle
+    //var categoryId = req.param('cid'); //categoryId is the ID that the user clicks on. expecting from andrizzle
+
+    var categoryName = req.param("category"); //take the category name and match it up to the appropriate categoryId.
+    var categoryId = global.categories[categoryName];
+
     console.log("cid: " + categoryId);
 
     console.log("about to make the restful api call!");
@@ -148,7 +178,6 @@ router.get('/productList', function (req, res, next) {
     });//end client.get();
 
 });
-
 
 router.post('/register', function(req, res, next) {
     var userProperties = {
