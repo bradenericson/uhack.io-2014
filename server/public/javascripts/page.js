@@ -187,7 +187,7 @@ function loadItem(productId){
 	jQuery("#itemDetails").show();
 	jQuery.ajax({
 		url: "/productDetails",
-		data: {dpci:productId;},
+		data: {dpci:productId},
 		type: "GET",
 		success: function(result){
 			jQuery("#itemPic").html(result.PrimaryImage);
